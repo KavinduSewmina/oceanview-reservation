@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Help</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body onload="initHelp()">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ocean View Resort — Room Reservation</div>
+      <div class="nav">
+        <a href="reservation.html">New Reservation</a>
+        <a href="view.html">View Reservation</a>
+        <a href="bill.html">Billing</a>
+        <a href="help.html">Help</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>Help & Guidelines</h1>
+      <ul class="small" style="line-height:1.8">
+        <li>Login using your staff username/email and password.</li>
+        <li>To create a reservation, select a room type and enter valid check-in/check-out dates.</li>
+        <li>Check-out date must be after check-in date.</li>
+        <li>Use “View Reservation” to search by reservation number (e.g., RES-000001).</li>
+        <li>Use “Billing” to calculate total (nights × rate per night) and print the bill.</li>
+        <li>Always verify guest details and contact number before saving.</li>
+      </ul>
+
+      <div class="msg" style="margin-top:14px">
+        <b>Tip:</b> If you get an error, read the message shown on screen. Most errors are due to invalid dates or an incorrect reservation number.
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    function initHelp(){
+      // allow help to be seen without login if you want
+      // requireAuth();
+    }
+  </script>
+</body>
+</html>

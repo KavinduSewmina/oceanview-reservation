@@ -28,6 +28,14 @@ public class ReservationService {
         this.roomTypeRepository = roomTypeRepository;
     }
 
+    /**
+     * Creates a reservation and generates a SHORT reservation number like RES-001.
+     *
+     * IMPORTANT:
+     * - Your DB column reservation_no must allow NULL for the first insert.
+     *   Run this once in MySQL Workbench:
+     *   ALTER TABLE reservations MODIFY reservation_no VARCHAR(30) NULL;
+     */
     @Transactional
     public ReservationResponse createReservation(CreateReservationRequest req) {
 
@@ -47,6 +55,7 @@ public class ReservationService {
         BigDecimal total = roomType.getRatePerNight().multiply(BigDecimal.valueOf(nights));
 
         Reservation reservation = new Reservation();
+        reservation.setReservationNo(null); // ✅ allow first insert (id is not known yet)
         reservation.setGuestName(req.getGuestName().trim());
         reservation.setGuestAddress(req.getGuestAddress().trim());
         reservation.setContactNo(req.getContactNo().trim());
@@ -57,23 +66,26 @@ public class ReservationService {
         reservation.setTotalAmount(total);
         reservation.setStatus("ACTIVE");
 
-        // Save first to get ID, then generate reservation_no
+        // 1) Save first -> generates auto-increment id
         reservation = reservationRepository.save(reservation);
 
-        String reservationNo = generateReservationNo(reservation.getId());
-        reservation.setReservationNo(reservationNo);
+        // 2) Generate short reservation number using id (RES-001)
+        reservation.setReservationNo(generateShortReservationNo(reservation.getId()));
 
+        // 3) Save again with reservation_no
         reservation = reservationRepository.save(reservation);
 
         return toResponse(reservation);
     }
 
+    @Transactional(readOnly = true)
     public ReservationResponse getReservation(String reservationNo) {
         Reservation reservation = reservationRepository.findByReservationNo(reservationNo)
                 .orElseThrow(() -> new NotFoundException("Reservation not found"));
         return toResponse(reservation);
     }
 
+    @Transactional(readOnly = true)
     public BillResponse getBill(String reservationNo) {
         Reservation reservation = reservationRepository.findByReservationNo(reservationNo)
                 .orElseThrow(() -> new NotFoundException("Reservation not found"));
@@ -114,8 +126,8 @@ public class ReservationService {
         }
     }
 
-    private String generateReservationNo(Long id) {
-        // Example: RES-000001
-        return "RES-" + String.format("%06d", id);
+    private String generateShortReservationNo(Long id) {
+        // RES-001, RES-002 ... RES-999, RES-1000 etc.
+        return "RES-" + String.format("%03d", id);
     }
 }

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>View Reservation</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body onload="initViewPage()">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ocean View Resort — Room Reservation</div>
+      <div class="nav">
+        <a href="reservation.html">New Reservation</a>
+        <a href="view.html">View Reservation</a>
+        <a href="bill.html">Billing</a>
+        <a href="help.html">Help</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>View Reservation</h1>
+
+      <label>Reservation Number</label>
+      <div class="row">
+        <input id="resNo" placeholder="RES-000001" style="flex:1" />
+        <button class="btn" onclick="searchReservation()">Search</button>
+      </div>
+
+      <div id="msg"></div>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/view.js"></script>
+</body>
+</html>

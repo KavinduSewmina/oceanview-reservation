@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Billing</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body onload="initBillPage()">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ocean View Resort — Room Reservation</div>
+      <div class="nav">
+        <a href="reservation.html">New Reservation</a>
+        <a href="view.html">View Reservation</a>
+        <a href="bill.html">Billing</a>
+        <a href="help.html">Help</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>Calculate & Print Bill</h1>
+
+      <label>Reservation Number</label>
+      <div class="row">
+        <input id="resNo" placeholder="RES-000001" style="flex:1" />
+        <button class="btn" onclick="getBill()">Generate</button>
+        <button class="btn secondary" onclick="printBill()">Print</button>
+      </div>
+
+      <div id="msg"></div>
+      <div id="billArea"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/bill.js"></script>
+</body>
+</html>

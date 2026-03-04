@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Login - Room Reservation</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ocean View Resort — Room Reservation</div>
+      
+    </div>
+
+    <div class="card" style="max-width:520px;margin:auto">
+      <h1>Login</h1>
+      <div class="small">Use your username/email and password to access the system.</div>
+
+      <label>Username or Email</label>
+      <input id="user" placeholder="admin or admin@oceanview.com" />
+
+      <label>Password</label>
+      <input id="pass" type="password" placeholder="••••••••" />
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn" onclick="doLogin()">Login</button>
+        <button class="btn secondary" onclick="fillDemo()">Fill Demo</button>
+      </div>
+
+      <div id="msg"></div>
+      <div class="footer">© Ocean View Resort</div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

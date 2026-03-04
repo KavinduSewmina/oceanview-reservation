@@ -33,9 +33,23 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, msg, req.getRequestURI());
     }
 
+    // Handles JSON parse errors, wrong data types, etc.
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>> handleNotReadable(
+            org.springframework.http.converter.HttpMessageNotReadableException ex,
+            HttpServletRequest req) {
+        return build(HttpStatus.BAD_REQUEST, "Invalid request body or date format (use YYYY-MM-DD).", req.getRequestURI());
+    }
+
+    // TEMP DEBUG: shows real error message and prints stack trace in console
+    // After debugging, you can replace ex.getMessage() with "Something went wrong"
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleAny(Exception ex, HttpServletRequest req) {
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong", req.getRequestURI());
+        ex.printStackTrace(); // prints full error in Eclipse console
+        String message = (ex.getMessage() == null || ex.getMessage().isBlank())
+                ? "Unexpected server error"
+                : ex.getMessage();
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, message, req.getRequestURI());
     }
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message, String path) {

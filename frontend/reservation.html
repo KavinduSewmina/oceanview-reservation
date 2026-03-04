@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>New Reservation</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body onload="initReservationPage()">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ocean View Resort — Room Reservation</div>
+      <div class="nav">
+        <a href="reservation.html">New Reservation</a>
+        <a href="view.html">View Reservation</a>
+        <a href="bill.html">Billing</a>
+        <a href="help.html">Help</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>Create Reservation</h1>
+      <div class="small">Fill guest details and select room type and dates.</div>
+
+      <div class="grid">
+        <div>
+          <label>Guest Name</label>
+          <input id="guestName" placeholder="Full name" />
+        </div>
+        <div>
+          <label>Contact No</label>
+          <input id="contactNo" placeholder="0771234567" />
+        </div>
+      </div>
+
+      <label>Guest Address</label>
+      <input id="guestAddress" placeholder="Address" />
+
+      <div class="grid">
+        <div>
+          <label>Room Type</label>
+          <select id="roomType"></select>
+        </div>
+        <div>
+          <label>Status</label>
+          <input value="ACTIVE" disabled />
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Check-in (YYYY-MM-DD)</label>
+          <input id="checkIn" placeholder="2026-03-10" />
+        </div>
+        <div>
+          <label>Check-out (YYYY-MM-DD)</label>
+          <input id="checkOut" placeholder="2026-03-12" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn" onclick="createReservation()">Create</button>
+        <button class="btn secondary" onclick="fillExample()">Fill Example</button>
+      </div>
+
+      <div id="msg"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/reservation.js"></script>
+</body>
+</html>
